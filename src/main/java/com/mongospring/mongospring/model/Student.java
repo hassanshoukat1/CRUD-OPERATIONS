@@ -13,17 +13,17 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Student {
 
     @Id
-    private Integer rno;
+    private String rno;
 
     private String name;
 
     private String address;
 
-    public Integer getRno() {
+    public String getRno() {
         return rno;
     }
 
-    public void setRno(Integer rno) {
+    public void setRno(String rno) {
         this.rno = rno;
     }
 

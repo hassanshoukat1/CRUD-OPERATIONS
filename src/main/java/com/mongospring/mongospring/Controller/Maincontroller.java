@@ -1,6 +1,6 @@
 package com.mongospring.mongospring.Controller;
 
-import com.mongospring.mongospring.Repositry.Studentrepo;
+import com.mongospring.mongospring.Repositry.StudentRepository;
 import com.mongospring.mongospring.model.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -8,40 +8,40 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("/api/students") // Added base path for better API structure
 public class Maincontroller {
 
-@Autowired
-    Studentrepo studentrepo;
+    @Autowired
+    StudentRepository studentRepository; // Updated repository name to follow naming conventions
 
-    @PostMapping("/addStudent")
+    @PostMapping("/add")
     public void addStudent(@RequestBody Student student) {
-studentrepo.save(student);
+        studentRepository.save(student);
     }
 
-    @GetMapping("/fetchStudents")
+    @GetMapping("/all")
     public List<Student> fetchStudents() {
-return studentrepo.findAll();
+        return studentRepository.findAll();
     }
 
-    @GetMapping("/getStudent/{id}")
-    public Student getStudent(@PathVariable Integer id) {
-       return studentrepo.findById(id).orElse(null);
+    @GetMapping("/{id}")
+    public Student getStudent(@PathVariable String id) {
+        return studentRepository.findById(id).orElse(null);
     }
 
-    @PutMapping ("/updateStudent")
+    @PutMapping("/update")
     public void updateStudent(@RequestBody Student student) {
-Student data=studentrepo.findById(student.getRno()).orElse(null);
-System.out.println(data);
-if (data!=null){
-    data.setName(student.getName());
-     data.setAddress(student.getAddress());
-     studentrepo.save(data);
-}
+        Student data = studentRepository.findById(student.getRno()).orElse(null);
+        System.out.println(data);
+        if (data != null) {
+            data.setName(student.getName());
+            data.setAddress(student.getAddress());
+            studentRepository.save(data);
+        }
     }
 
-    @DeleteMapping("/deleteStudent/{id}")
-    public void deleteStudent(@PathVariable Integer id) {
-        studentrepo.deleteById(id);
+    @DeleteMapping("/{id}")
+    public void deleteStudent(@PathVariable String id) {
+        studentRepository.deleteById(id);
     }
-
 }

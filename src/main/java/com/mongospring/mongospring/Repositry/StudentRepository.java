@@ -2,6 +2,8 @@ package com.mongospring.mongospring.Repositry;
 
 import com.mongospring.mongospring.model.Student;
 import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.stereotype.Repository;
 
-public interface Studentrepo extends MongoRepository<Student,Integer> {
+@Repository
+public interface StudentRepository extends MongoRepository<Student, String> {
 }
